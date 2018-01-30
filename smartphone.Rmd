@@ -1,0 +1,151 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+```{r}
+library(RgoogleMaps)
+library(plotGoogleMaps)
+```
+
+Loading the files
+```{r}
+myd1 = read.csv(file="ID1.txt", header=TRUE, sep=",")
+colnames(myd1) <- c("latitude","longitude","time")
+myd2 = read.csv(file="ID2.txt", header=TRUE, sep=" ")
+colnames(myd2) <- c("latitude","longitude", "bool", "time")
+myd3 = read.csv(file="ID3.txt", header=TRUE, sep=",")
+colnames(myd3) <- c("latitude","longitude", "bool", "time")
+```
+
+Analysing size of the data
+```{r}
+# Number of observations
+print(dim(myd1))
+print(dim(myd2))
+print(dim(myd3))
+# Number of days
+print((max(myd1$t) - min(myd1$t))/(24*3600))
+print((max(myd2$t) - min(myd2$t))/(24*3600))
+print((max(myd3$t) - min(myd3$t))/(24*3600))
+```
+
+Localization 
+```{r}
+par(mfrow=c(3, 2))
+hist(myd1$lat, freq=F)
+hist(myd1$lon, freq=F)
+hist(myd2$lat, freq=F)
+hist(myd2$lon, freq=F)
+hist(myd3$lat, freq=F)
+hist(myd3$lon, freq=F)
+```
+
+  
+
+  
+```{r}
+myd1$duree=myd1$time
+myd1$duree[1]=0.
+for (i in 2:length(myd1$duree)){
+  myd1$duree[i]=myd1$time[i]-myd1$time[i-1]
+}
+
+R=6370000;
+  
+myd1$distance=myd1$latitude
+myd1$distance[1]=0.
+for (i in 2:length(myd1$distance)){
+  myd1$distance[i]=R*acos(cos(myd1$latitude[i]*pi/180)*cos(myd1$latitude[i-1]*pi/180)*cos((myd1$longitude[i-1]*pi/180)-(myd1$longitude[i]*pi/180))+sin(myd1$latitude[i]*pi/180)*sin(myd1$latitude[i-1]*pi/180))
+}
+
+myd1$speed = myd1$distance / myd1$duree 
+```
+
+```{r}
+dureegap = 100
+distgap = 100
+vgap = 1.5
+myd1.gap = myd1[myd1$duree < dureegap,]
+myd1.gap = myd1.gap[myd1$duree < distgap,]
+#myd1.gap = myd1.gap[myd1$speed < vgap,]
+
+myd1.gap = myd1.gap[-1,]
+write.table(myd1.gap, file="hot_spot.txt", sep=",", row.names=FALSE)
+```
+
+
+```{r}
+latlong1 = cbind(myd1$lat, myd1$long)
+latlong2 = cbind(myd2$lat, myd2$long)
+latlong3 = cbind(myd3$lat, myd3$long)
+
+latlong1.gap = cbind(myd1.gap$lat, myd1.gap$long)
+#latlong2.gap = cbind(myd2.gap$lat, myd2.gap$long)
+#latlong3.gap = cbind(myd3.gap$lat, myd3.gap$long)
+```
+
+
+KMEANS
+```{r}
+res.km <- kmeans(latlong1, centers='4')
+#res.km <- kmeans(latlong1.gap, centers='4')
+```
+
+```{r}
+res.km$centers
+```
+
+
+
+# DENDROGRAMME
+
+```{r}
+latlong.dist <- dist(latlong1)
+# matrice des distances entre individus
+cah.ward <- hclust(latlong.dist, method="ward.D2")
+# affichage dendrogramme
+plot(cah.ward, labels = FALSE) 
+# dendrogramme avec matérialisation des groupes
+
+latlong.dist <- dist(latlong2)
+# matrice des distances entre individus
+cah.ward <- hclust(latlong.dist, method="ward.D2")
+# affichage dendrogramme
+plot(cah.ward, labels = FALSE) 
+# dendrogramme avec matérialisation des groupes
+
+latlong.dist <- dist(latlong3)
+# matrice des distances entre individus
+cah.ward <- hclust(latlong.dist, method="ward.D2")
+# affichage dendrogramme
+plot(cah.ward, labels = FALSE) 
+# dendrogramme avec matérialisation des groupes
+#dendro.cluters = rect.hclust(cah.ward, k=2, border='red')
+```
+
+
+# DENDROGRAM
+```{r}
+latlong.dist <- dist(latlong1)
+# matrice des distances entre individus
+cah.ward <- hclust(latlong.dist, method="ward.D2")
+# affichage dendrogramme
+plot(cah.ward, labels = FALSE) 
+# dendrogramme avec matérialisation des groupes
+
+latlong.dist <- dist(latlong2)
+# matrice des distances entre individus
+cah.ward <- hclust(latlong.dist, method="ward.D2")
+# affichage dendrogramme
+plot(cah.ward, labels = FALSE) 
+# dendrogramme avec matérialisation des groupes
+
+latlong.dist <- dist(latlong3)
+# matrice des distances entre individus
+cah.ward <- hclust(latlong.dist, method="ward.D2")
+# affichage dendrogramme
+plot(cah.ward, labels = FALSE) 
+# dendrogramme avec matérialisation des groupes
+```
+
