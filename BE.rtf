@@ -1,0 +1,97 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf210
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww20760\viewh13500\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural
+
+\f0\fs24 \cf0        
+\b\fs28 BE : attaques par inf\'e9rence sur traces de mobilit\'e9
+\b0\fs24 \
+\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\qj
+
+\b \cf0 Date limite de remise du BE
+\b0  : 1er mars\
+Le BE se fait par groupe de 2 \'e9tudiants (au maximum) et les fichiers \'e0 remettre doivent \'eatre envoy\'e9es au plus tard dimanche 1er mars \'e0 minuit par courriel \'e0 l'adresse \'e9lectronique \'ab\'a0marco.killijian@laas.fr\'a0\'bb.\
+
+\b Rappel 
+\b0 : tout plagiat est formellement interdit et bien qu'il soit naturel que vous puissiez parfois discuter avec vos camarades oralement sur comment attaquer ou r\'e9soudre un probl\'e8me, il est formellement interdit d'\'e9changer des fichiers de code.\
+\
+
+\b Description :
+\b0 \
+Le but de ce BE est de vous familiariser avec l'analyse et les attaques par inf\'e9rence sur des donn\'e9es g\'e9olocalis\'e9es. Plus pr\'e9cis\'e9ment, vous allez recevoir deux fichiers repr\'e9sentant les traces de mobilit\'e9 de deux individus pendant plusieurs mois. Pour l\'92un d\'92entre eux, il s\'92agit d\'92un taxi de San Francisco, pour l\'92autre d\'92un chercheur Toulousain. Il vous faudra analyser ces traces de mobilit\'e9 en essayant d'y extraire des informations telles que les "hotspots" (points de la carte tr\'e8s fr\'e9quent\'e9es) et si c'est possible les points d'int\'e9r\'eats concernant les individus dont vous avez re\'e7u les traces. Pour cela, vous utiliserez R ou Java (ou un autre langage de votre choix, sans support technique), Google Earth ou Maps, mais vous avez \'e9videmment le droit d'utiliser d'autres sources publiques d'information (telles que PagesJaunes, YahooMaps ou Google Streetview par exemple).\
+\
+
+\b Partie 1 : Visualisation des donn\'e9es\
+
+\b0 \
+Vous devez r\'e9cup\'e9rer \'e0 l\'92adresse http://homepages.laas.fr/~mkilliji/BEPrivacy trois fichiers de mobilit\'e9 d\'92individus (dont les noms sont remplac\'e9s par des pseudonymes: ID1, ID2 et ID3) en format csv. Vous devrez les convertir en format kml avant de commencer \'e0 les utiliser. Pour la conversion de fichier, utiliser le site suivant : http://www.gpsvisualizer.com/\
+Vous devrez aussi t\'e9l\'e9charger et installer Google Earth ou utiliser Google Maps, ou enfin vous contenter de gpsvisualizer, pour visualiser les traces de mobilit\'e9. \
+A partir d\'92une simple visualisation (on peut bien entendu zoomer), que pouvez vous inf\'e9rer de ces deux traces de mobilit\'e9 ?\
+\
+
+\b Partie 2 : Attaques par inf\'e9rence\
+
+\b0 \
+Vous devrez impl\'e9menter deux attaques par inf\'e9rence sur donn\'e9es g\'e9olocalis\'e9es dans ce BE qui sont d\'e9crites ci-apr\'e8s. Afin d'impl\'e9menter ces attaques par inf\'e9rences, vous \'eates libres d'utiliser le langage de programmation de votre choix, C, Java ou R.\
+\
+
+\b 1.
+\b0  Une attaque de type \'ab\'a0BeginEnd\'a0\'bb qui essaye d'identifier les points d'int\'e9r\'eats d'un individu en d\'e9couvrant des "trous" dans les traces de mobilit\'e9 et en consid\'e9rant le point d'arriv\'e9e et de d\'e9part avant ce trou comme des points d'int\'e9r\'eats possibles. Voir les heuristiques du cours GeoPrivacy pour plus de d\'e9tails. \
+\
+
+\b 2.
+\b0  Une attaque qui utilise un algorithme de clustering du type k-moyennes (
+\i kmean
+\i0 ) pour essayer de trouver des groupes de localisation dont la localisation moyenne ou m\'e9dianes pourrait correspondre \'e0 un point d'int\'e9r\'eat (par exemple la maison). Cet algorithme pourra prendre en entr\'e9e soit la trace totale, soit le r\'e9sulta de  l'attaque pr\'e9c\'e9dente et retournera en sortie une repr\'e9sentation des diff\'e9rents groupes (clusters) d\'e9couverts. \
+\
+Pour chaque attaque, visualiser le r\'e9sultat (cf. question 1) et essayer d\'92inf\'e9rer de nouvelles connaissances concernant ID1 et ID2.\
+\
+
+\b Partie 3 : Question subsidiaire\
+
+\b0 \
+Quelles sont les informations personnelles disponibles sur Internet \'e0 un adversaire curieux \'e0 propos de votre bin\'f4me ? Sont elles 
+\i sensibles
+\i0  ? Penser \'e0 se d\'e9loguer de vos comptes Google, Facebook, etc. voire d\'92utiliser la fonction 
+\i navigation priv\'e9e
+\i0  des navigateurs. Commenter.\
+\
+
+\b Travail \'e0 rendre :
+\b0 \
+Suite \'e0 ce BE, vous devrez remettre un court rapport qui r\'e9sume ce que vous avez d\'e9couvert en analysant les traces de mobilit\'e9 des deux individus (pr\'e9ciser leurs pseudonymes dans le rapport rendu). En particulier, vous devrez pour chaque individu d\'e9crire son comportement de mobilit\'e9, les points d'int\'e9r\'eats qu'il visite fr\'e9quemment ainsi que par exemple si vous pensez avoir identifier son lieu d'habitation ou d'autres informations personnelles. Vous devrez d\'e9crire bri\'e8vement les probl\'e8mes et d\'e9fis que vous avez rencontr\'e9 lors de votre analyse et aussi les id\'e9es possibles que vous auriez pour les surmonter (sans forc\'e9ment les impl\'e9menter). Enfin, vous remettrez aussi deux fichiers contenant les r\'e9sultats des attaques 1 et 2 de la partie 2.\
+\
+* Rapport en pdf\
+* Code source (.java, .R, .C, etc.)\
+* R\'e9sultats des attaques (.txt au format csv ou autre)\
+\
+
+\b Trucs pour R :\
+\
+
+\b0 La fonction 
+\i read.csv(file=\'ab\'a0NomDuFichier\'a0\'bb,header=TRUE,sep=\'ab\'a0,\'a0\'bb)
+\i0  renvoie un dataframe qui contient les donn\'e9es du fichier. \
+\
+Il est utile de renommer les colonnes ensuite 
+\i colnames(myd)<-c("lat","lon\'a0\'bb,\'a0\'bbt\'a0\'bb)
+\i0 \
+\
+Le package 
+\i RgoogleMaps
+\i0  permet d\'92afficher des GoogleMaps statiques avec les fonctions 
+\i MaxZoom
+\i0 , 
+\i GetMap
+\i0  et 
+\i PlotOnStaticMap
+\i0 \
+\
+Le package 
+\i plotGoogleMaps
+\i0  permet d\'92afficher des GoogleMaps dynamiques (sur une page web avec zoom et d\'e9placement) avec la fonction plotGoogleMaps. La projection utilis\'e9e dans ces donn\'e9es est epsg:4326. Il faut l\'92indiquer avant de visualiser les donn\'e9es: 
+\i proj4string(myd) <- CRS('+init=epsg:4326')\
+\
+}
