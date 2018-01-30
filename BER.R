@@ -1,4 +1,6 @@
-ID1=read.csv(file="ID1.txt",header = TRUE, sep=",")
+rm(list=ls())
+setwd("/Users/asus/Desktop/SmartphoneData/")
+ID1=read.csv(file="/Users/asus/Desktop/SmartphoneData/ID1.txt",header = TRUE, sep=",")
 
 
 # Question 1 ----
@@ -25,7 +27,41 @@ View(ID1)
 
 hist(ID1$duree)
 summary(ID1)
-boxplot(ID1$duree)
+
 
 # eliminer les durees negatives
 # ID1$duree[ID1$duree<=0]
+
+# A1 correspond a ID1 pour des distances et durees courtes
+
+A1=ID1[(ID1$distance<100) & (ID1$duree<100) ,]
+View(A1)
+dim(A1)
+
+plot(A1$longitude,A1$latitude)
+
+# On distingue deux clusters vraiments eloignees :
+
+A11=A1[(A1$longitude<2),]
+A12=A1[(A1$longitude>2) & (A1$latitude>48),]
+
+plot(A11$longitude,A11$latitude)
+kmA11.res=kmeans(cbind(A11$longitude,A11$latitude),centers = 2)
+plot(A11$longitude,A11$latitude, col = kmA11.res$cluster)
+
+plot(A12$longitude,A12$latitude)
+kmA12.res=kmeans(cbind(A12$longitude,A12$latitude),centers = 3)
+plot(A12$longitude,A12$latitude, col = kmA12.res$cluster)
+
+kmA12.res$centers
+
+help("write.table")
+
+# permet de mettre le visualiser le fichier sur le site :
+write.table(A11, file="hot_spotA11.txt", sep=",", row.names=FALSE)
+
+write.table(A12, file="hot_spotA12.txt", sep=",", row.names=FALSE)
+
+
+help(hclust)
+  
